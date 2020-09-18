@@ -6,11 +6,11 @@ const store = {
     { id: cuid(), name: 'bread', checked: false }
   ],
   hideCheckedItems: false,
-  changeItemName: ''
+  newItemName: ''
 };
 
 const generateItemElement = function (item) {
-  let itemTitle = `<input class='shopping-item shopping-item__checked' type="text" name="shopping-item" value="${item.name}">`;
+  let itemTitle = `<input class='shopping-item shopping-item__checked itemChange' type="text" name="shopping-item" value="${item.name}">`;
   if (!item.checked) {
     itemTitle = `<input type="text" name="shopping-item" value="${item.name}">`;
   }
@@ -144,6 +144,28 @@ const handleToggleFilterClick = function () {
   });
 };
 
+const eraseItemName = function(item) {
+  //this function will empty the current item
+  $('itemChange').empty();
+};
+
+const userItemNameChange = function(item) {
+  //this function will take the empty item name and replace it with
+  //the user's input
+  eraseItemName();
+  let newItem = $('input').val();
+  return item.name = newItem;
+}
+
+const handleNameChange = function() {
+  //this function will erase the old item name and replace it
+  //with one provided by the user
+  //it will re-render the page with the updated name
+  //the user will then be able to check/uncheck the item
+  userItemNameChange();
+  render();
+}
+
 /**
  * This function will be our callback when the
  * page loads. It is responsible for initially 
@@ -159,6 +181,7 @@ const handleShoppingList = function () {
   handleItemCheckClicked();
   handleDeleteItemClicked();
   handleToggleFilterClick();
+  handleNameChange();
 };
 
 // when the page loads, call `handleShoppingList`
