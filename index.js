@@ -5,15 +5,14 @@ const store = {
     { id: cuid(), name: 'milk', checked: true },
     { id: cuid(), name: 'bread', checked: false }
   ],
-  hideCheckedItems: false
+  hideCheckedItems: false,
+  changeItemName: ''
 };
 
 const generateItemElement = function (item) {
-  let itemTitle = `<span class='shopping-item shopping-item__checked'>${item.name}</span>`;
+  let itemTitle = `<input class='shopping-item shopping-item__checked' type="text" name="shopping-item" value="${item.name}">`;
   if (!item.checked) {
-    itemTitle = `
-     <span class='shopping-item'>${item.name}</span>
-    `;
+    itemTitle = `<input type="text" name="shopping-item" value="${item.name}">`;
   }
 
   return `
